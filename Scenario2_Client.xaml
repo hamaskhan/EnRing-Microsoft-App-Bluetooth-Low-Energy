@@ -1,0 +1,62 @@
+<Page
+    x:Class="SDKTemplate.Scenario2_Client"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:SDKTemplate"
+    xmlns:media="using:Windows.UI.Xaml.Media"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <media:AcrylicBrush x:Key="CustomAcrylicBrush3" BackgroundSource="HostBackdrop"
+         TintOpacity="0.33" TintColor="Black" FallbackColor="Black" />
+        <DataTemplate x:Key="AttributeTemplate" x:DataType="local:BluetoothLEAttributeDisplay">
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*" MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="1" Margin="5">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind Name}" Style="{StaticResource ListItemTextStyle}" FontWeight="Bold" TextWrapping="WrapWholeWords"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Bind AttributeDisplayType}" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+    <ScrollViewer Background="{StaticResource CustomAcrylicBrush3}" Padding="12,10,12,12">
+        <StackPanel>
+            <TextBlock Text="Connect enRING" Style="{StaticResource SampleHeaderTextStyle}"/>
+
+            <TextBlock Style="{StaticResource ListItemTextStyle}" TextWrapping="Wrap" Margin="0,10,0,0" Width="1474" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                Selected Ring: <Run Text="{x:Bind rootPage.SelectedBleDeviceName}" FontWeight="Bold"/>
+            </TextBlock>
+            <ComboBox x:Name="ServiceList" Margin="0,10,0,0" PlaceholderText="Choose a service" Visibility="Collapsed"
+                      ItemsSource="{x:Bind ServiceCollection}" DisplayMemberPath="Name"/>
+            <!--   SelectionChanged="{x:Bind ServiceList_SelectionChanged}"/>      This line added-->
+
+            <ComboBox x:Name="CharacteristicList" Margin="0,10,0,0" PlaceholderText="Choose a characteristic" Visibility="Collapsed"
+                      ItemsSource="{x:Bind CharacteristicCollection}"  DisplayMemberPath="Name"/>
+            <!--      SelectionChanged="{x:Bind CharacteristicList_SelectionChanged}" />    This line added-->
+            <StackPanel Orientation="Horizontal">
+
+                <!-- //Removed button along with its function ValueChangedSubscribeToggle_Click()-->
+
+            </StackPanel>
+            <StackPanel x:Name="CharacteristicWritePanel" Margin="0,10,0,0" Visibility="Visible">
+                <TextBox x:Name="CharacteristicWriteValue" PlaceholderText="Enter text/number to send" Visibility="Collapsed"/>
+                <!-- //Removed Write value as int and uint8 buttons and removed their functions.
+                     //Also set visibilty of above textbox as Collapsed-->
+            </StackPanel>
+            <!-- TextBlock below is redundant -->
+            <TextBlock x:Name="CharacteristicLatestValue" Margin="0,10,0,0"/>
+            <Button x:Name="ReadButton" Content="Connect" Click="{x:Bind Read_button}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>
